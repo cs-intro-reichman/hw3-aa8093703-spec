@@ -28,8 +28,14 @@ public class LoanCalc {
 	// Computes the ending balance of a loan, given the loan amount, the periodical
 	// interest rate (as a percentage), the number of periods (n), and the periodical payment.
 	private static double endBalance(double loan, double rate, int n, double payment) {	
-		// Replace the following statement with your code
-		return 0;
+
+		double currentDebt = loan;
+
+		for (int i = 0; i < n; i++){
+			currentDebt = (currentDebt - payment) * (1 + rate / 100);
+			}
+
+		return currentDebt;
 	}
 	
 	// Uses sequential search to compute an approximation of the periodical payment
@@ -38,8 +44,20 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
-		// Replace the following statement with your code
-		return 0;
+
+		double payment = loan / n;
+
+		double solution = endBalance(loan, rate, n, payment);
+
+		iterationCounter = 0;
+
+		while (solution > 0) {
+			payment += epsilon;
+			iterationCounter++;
+			solution = endBalance(loan, rate, n, payment);
+			}
+
+		return payment;
     }
     
     // Uses bisection search to compute an approximation of the periodical payment 
@@ -48,7 +66,30 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-        // Replace the following statement with your code
-		return 0;
+        
+		iterationCounter = 0;
+		double L = loan / n;
+		double H = loan; // I assmue this will be large enough
+
+		if (endBalance(loan, rate, n, L) * endBalance(loan, rate, n, H) > 0) H = 2 * loan; // If the first H value wasn't large enough, this one will be
+
+		double g = (H + L) / 2;
+
+		while (H - L > epsilon){
+
+
+			if (endBalance(loan, rate, n, L) * endBalance(loan, rate, n, g) > 0){
+				L = g;
+			}
+			else H = g;
+
+			g = (H + L) / 2;
+
+			iterationCounter++;
+
+		}
+
+
+		return g;
     }
 }
