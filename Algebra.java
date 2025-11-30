@@ -1,3 +1,18 @@
+/* Feedback:
+Great work however your code is too spaced out, there's no need to skip lines between 
+if - else, meaning 
+if {
+} else {
+	}
+is enough you don't need
+ if {
+ }
+ 
+ else {
+}
+
+ */
+
 // Implements algebraic operations and the square root function without using 
 // the Java operations a + b, a - b, a * b, a / b, a % b, and without calling 
 // Math.sqrt. All the functions in this class operate on int values and
